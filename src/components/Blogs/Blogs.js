@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import BlogCard from '../BlogCard';
 import './../../assets/utilities.scss';
 import './Blogs.scss';
+const logo = require('./../../assets/images/header.jpg').default
 
 export default function Blogs() {
 
@@ -35,6 +36,10 @@ export default function Blogs() {
     setCategory(event.target.value)
   }
 
+  const getDetails = (id) => {
+    console.log(id);
+  }
+
   return (
     <article className="blog">
       <div className="blog--header">
@@ -42,7 +47,7 @@ export default function Blogs() {
           <span>The TrueCaller Blog</span>
         </div>
         <img
-          src="@/assets/images/header.png"
+          src={logo}
           alt="header"
           className="blog--header__image"
         />
@@ -64,7 +69,7 @@ export default function Blogs() {
           </select>
         </div>
         <div className="blog--articles__card">
-          { cardList.map(card => <BlogCard key={card.slug} card={card} />) }
+          { cardList.map(card => <div key={card.slug} onClick={() => getDetails(card.slug)}><BlogCard card={card}  /></div>) }
         </div>
         <div className="blog--articles__pagination flex jc-around font-weight-bold m-t-20">
           {/* <jw-pagination :items="totalPost" @changePage="onChangePage" :labels="customLabels" /> */}

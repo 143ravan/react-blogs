@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import BlogCard from '../BlogCard';
 import './../../assets/utilities.scss';
 import './Blogs.scss';
+import { Link } from 'react-router-dom';
 const logo = require('./../../assets/images/header.jpg').default
 
 export default function Blogs() {
@@ -69,7 +70,7 @@ export default function Blogs() {
           </select>
         </div>
         <div className="blog--articles__card">
-          { cardList.map(card => <div key={card.slug} onClick={() => getDetails(card.slug)}><BlogCard card={card}  /></div>) }
+          { cardList.map(card => <Link key={card.slug} to={`/blog-details/${card.slug}`}><BlogCard card={card}  /></Link>) }
         </div>
         <div className="blog--articles__pagination flex jc-around font-weight-bold m-t-20">
           {/* <jw-pagination :items="totalPost" @changePage="onChangePage" :labels="customLabels" /> */}

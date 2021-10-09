@@ -23,20 +23,25 @@ export default function BlogDetails() {
 
   return (
     <section className="blog-details">
+      {blogDetails && blogDetails.featured_image &&
       <img
         src={blogDetails.featured_image}
         className="blog-details--image"
         alt="featured_image" />
+      }
       <div className="blog-details--content">
         <div className="title font-weight-bold">
           { blogDetails.title }
         </div>
         <div className="flex m-t-10">
           <div>
+           {
+             blogDetails.featured_image &&
             <img
               src={blogDetails.featured_image}
               className="blog-details--content__avatar"
               alt="author" />
+           }
           </div>
           <div className="blog-details--content__profile">
             <div className="blog-details--content__name font-20">
@@ -47,7 +52,7 @@ export default function BlogDetails() {
             </div>
           </div>
         </div>
-        <div class="post-content">{ blogDetails.content && parse(blogDetails.content) }</div>
+        <div className="post-content">{ blogDetails.content && parse(blogDetails.content) }</div>
       </div>
     </section>
   )

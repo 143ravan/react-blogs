@@ -5,6 +5,17 @@
       height: 90vh;
     }
   }
+  &--loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media only screen and (min-width: 760px) {
+      height: 90vh;
+    }
+    &__img {
+      height: 200px;
+    }
+  }
   &--content {
     padding: 50px 20%;
     

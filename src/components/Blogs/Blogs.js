@@ -3,6 +3,8 @@ import BlogCard from '../BlogCard';
 import './../../assets/utilities.scss';
 import './Blogs.scss';
 import { Link } from 'react-router-dom';
+import InfiniteScroll from "react-infinite-scroll-component";
+
 const logo = require('./../../assets/images/header.jpg').default
 
 export default function Blogs() {
@@ -10,20 +12,25 @@ export default function Blogs() {
   const [cardList, setCardList] = useState([])
   const [categoryList, setCategoryList] = useState([])
   const [category , setCategory] = useState('')
+  const [hasMoreCards, setHasMoreCards] = useState(true)
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
-    fetchCardList()
+    fetchCardList(1)
   }, [category])
 
   useEffect(() => {
     fetchCategories()
+    window.scrollTo(0, 0)
   }, [])
 
-  const fetchCardList = async() => {
-    const url = `https://public-api.wordpress.com/rest/v1.1/sites/107403796/posts?fields=slug,categories,post_thumbnail,title,date&category=${category}`
+  const fetchCardList = async(page) => {
+    const url = `https://public-api.wordpress.com/rest/v1.1/sites/107403796/posts?fields=slug,categories,post_thumbnail,title,date&category=${category}&page=${page}`
     const rawData = await fetch(url)
     const list = await rawData.json()
     setCardList(list.posts)
+    setHasMoreCards(categoryList.length < list.found)
+    setPage(page + 1)
   }
 
   const fetchCategories = async() => {
@@ -36,9 +43,13 @@ export default function Blogs() {
   const filterBlogs = (event) => {
     setCategory(event.target.value)
   }
-
-  const getDetails = (id) => {
-    console.log(id);
+  const fetchMoreData = async() => {
+    const url = `https://public-api.wordpress.com/rest/v1.1/sites/107403796/posts?fields=slug,categories,post_thumbnail,title,date&category=${category}&page=${page}`
+    const rawData = await fetch(url)
+    const list = await rawData.json()
+    setCardList(cardList.concat(list.posts))
+    setHasMoreCards(categoryList.length < list.found)
+    setPage(page + 1)
   }
 
   return (
@@ -69,12 +80,15 @@ export default function Blogs() {
             {categoryList.map(category => <option key={category.slug} value={category.name}>{category.name}</option>)}
           </select>
         </div>
-        <div className="blog--articles__card">
-          { cardList.map(card => <Link key={card.slug} to={`/blog-details/${card.slug}`}><BlogCard card={card}  /></Link>) }
-        </div>
-        <div className="blog--articles__pagination flex jc-around font-weight-bold m-t-20">
-          {/* <jw-pagination :items="totalPost" @changePage="onChangePage" :labels="customLabels" /> */}
-        </div>
+        <InfiniteScroll
+          dataLength={cardList.length}
+          next={fetchMoreData}
+          hasMore={hasMoreCards}
+          loader={<h4>Loading...</h4>}>
+          <div className="blog--articles__card">
+            { cardList.map(card => <Link key={card.slug}  to={`/blog-details/${card.slug}`}><BlogCard card={card}  /></Link>) }
+          </div>
+        </InfiniteScroll>
       </div>
     </article>
   )

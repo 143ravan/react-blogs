@@ -8,7 +8,7 @@ export default function BlogCard(props) {
         {Object.keys(props.card.categories)[0]}
       </div>
       <img
-        src={props.card.post_thumbnail.URL}
+        src={props.card?.post_thumbnail?.URL}
         alt="post_thumbnail"
         className="blog-card--avatar" />
       <div className="padding-20">

@@ -4,12 +4,14 @@ import parse from 'html-react-parser'
 
 import './../../assets/utilities.scss';
 import './BlogDetails.scss';
+const loader = require('./../../assets/images/loader.gif').default
 
 export default function BlogDetails() {
   const params = useParams()
 
   useEffect(() => {
     fetchBlogDetails()
+    window.scrollTo(0, 0)
   }, [])
 
   const [blogDetails, setBlogDetails] = useState({})
@@ -23,6 +25,14 @@ export default function BlogDetails() {
 
   return (
     <section className="blog-details">
+      {!blogDetails ||  !blogDetails.featured_image &&
+        <div className="blog-details--loader">
+          <img
+            src={loader}
+            className="blog-details--loader__img"
+            alt="featured_image" />
+        </div>
+      }
       {blogDetails && blogDetails.featured_image &&
       <img
         src={blogDetails.featured_image}

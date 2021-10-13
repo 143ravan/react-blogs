@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import parse from 'html-react-parser'
-
+import Header from './../Header'
 import './../../assets/utilities.scss';
 import './BlogDetails.scss';
 const loader = require('./../../assets/images/loader.gif').default
@@ -25,7 +25,7 @@ export default function BlogDetails() {
 
   return (
     <section className="blog-details">
-      {!blogDetails ||  !blogDetails.featured_image &&
+      {(!blogDetails ||  !blogDetails.featured_image) &&
         <div className="blog-details--loader">
           <img
             src={loader}
@@ -33,11 +33,14 @@ export default function BlogDetails() {
             alt="featured_image" />
         </div>
       }
-      {blogDetails && blogDetails.featured_image &&
-      <img
-        src={blogDetails.featured_image}
-        className="blog-details--image"
-        alt="featured_image" />
+      {(blogDetails && blogDetails.featured_image) &&
+      <div>
+        <Header />
+        <img
+          src={blogDetails.featured_image}
+          className="blog-details--image"
+          alt="featured_image" />
+      </div>
       }
       <div className="blog-details--content">
         <div className="title font-weight-bold">

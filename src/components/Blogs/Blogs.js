@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import BlogCard from '../BlogCard';
+import Loader from '../Loader';
 import './../../assets/utilities.scss';
 import './Blogs.scss';
 import { Link } from 'react-router-dom';
@@ -84,7 +85,7 @@ export default function Blogs() {
           dataLength={cardList.length}
           next={fetchMoreData}
           hasMore={hasMoreCards}
-          loader={<h4>Loading...</h4>}>
+          loader={<Loader />}>
           <div className="blog--articles__card">
             { cardList.map(card => <Link key={card.slug}  to={`/blog-details/${card.slug}`}><BlogCard card={card}  /></Link>) }
           </div>

@@ -1,0 +1,67 @@
+.flex {
+  display: flex;
+}
+.jc-between {
+  justify-content: space-between;
+}
+.jc-center {
+  justify-content: center;
+}
+.jc-around {
+  justify-content: space-around;
+}
+.align-center {
+  align-items: center;
+}
+
+.font {
+  &-12 {
+    font-size: 12px;
+  }
+  &-14 {
+    font-size: 14px;
+  }
+  &-16 {
+    font-size: 16px;
+  }
+  &-18 {
+    font-size: 18px;
+  }
+  &-40 {
+    font-size: 40px;
+  }
+  &-48 {
+    font-size: 48px;
+  }
+  &-weight-bold {
+    font-weight: 600;
+  }
+}
+
+.m-t {
+  &-5 {
+    margin-top: 5px;
+  }
+  &-10 {
+    margin-top: 10px;
+  }
+  &-20 {
+    margin-top: 20px;
+  }
+  &-40 {
+    margin-top: 40px;
+  }
+  &-50 {
+    margin-top: 50px;
+  }
+}
+
+.padding {
+  &-20 {
+    padding: 20px;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
